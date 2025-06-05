@@ -1,17 +1,14 @@
-import express from "express"
+import express from "express";
+import { login, signup, logout, updateProfile } from "../controllers/auth.controller";
+import { protectRoute } from "../middleware/auth.middleware";
+const authRoutes = express.Router();
 
-const authRoutes = express.Router()
+authRoutes.post("/signup", signup);
 
-authRoutes.get("/signup", (req, res) => {
-    res.send("signup route")
-})
+authRoutes.post("/login", login);
 
-authRoutes.get("/login", (req, res) => {
-    res.send("login route")
-})
+authRoutes.post("/logout", logout);
 
-authRoutes.get("/logout", (req, res) => {
-    res.send("logout route")
-})
+authRoutes.put("/update-profile", protectRoute, updateProfile)
 
 export default authRoutes;

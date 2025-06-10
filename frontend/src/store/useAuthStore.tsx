@@ -2,15 +2,19 @@ import { axiosInstance } from "../lib/axios.tsx";
 import { create } from "zustand";
 import toast from "react-hot-toast";
 import type { AxiosError } from "axios";
+import type {loginForm, signupForm, updateProfileForm} from "../types.tsx"
+
 type ErrorResponse = {
   message: string;
 };
+
 export const useAuthStore = create((set) => ({
   authUser: null,
   isSigningUp: false,
   isLoggingIn: false,
   isUpdatingProfile: false,
   isCheckingAuth: true,
+  onlineUsers: [],
 
   checkAuth: async () => {
     try {
@@ -24,7 +28,7 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  signup: async (data) => {
+  signup: async (data:signupForm) => {
     set({ isSigningUp: true });
     try {
       const res = await axiosInstance.post("auth/signup", data);
@@ -48,7 +52,7 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  login: async (data) => {
+  login: async (data: loginForm) => {
     set({ isLoggingIn: true });
     try {
       const res = await axiosInstance.post("/auth/login", data);
@@ -62,7 +66,7 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  updateProfile: async (data) => {
+  updateProfile: async (data: updateProfileForm) => {
     set({ isUpdatingProfile: true });
     try {
         console.log('updateProfile', data)
@@ -76,4 +80,6 @@ export const useAuthStore = create((set) => ({
       set({ isUpdatingProfile: false });
     }
   },
+
+
 }));

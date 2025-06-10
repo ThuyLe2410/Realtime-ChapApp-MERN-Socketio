@@ -1,9 +1,12 @@
-import React from "react";
+
 import { THEMES } from "../constants";
 import { useThemeStore } from "../store/useThemeStore";
 
 export default function SettingPage() {
-  const { theme, setTheme } = useThemeStore();
+  const { theme, setTheme } = useThemeStore() as {
+    theme:string,
+    setTheme: (data: string) => void
+  };
   return (
     <div className="h-screen container mx-auto px-4 pt-20 max-w-5xl">
       <div className="space-y-6">

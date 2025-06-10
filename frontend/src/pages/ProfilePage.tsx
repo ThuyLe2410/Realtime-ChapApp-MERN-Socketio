@@ -1,9 +1,14 @@
 import { Camera, User } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import { useState } from "react";
+import type { userProps, useUpdateProfile } from "../types";
 
 export default function ProfilePage() {
-  const { authUser, updateProfile, isUpdatingProfile } = useAuthStore();
+  const { authUser, updateProfile, isUpdatingProfile } = useAuthStore() as {
+    authUser: userProps,
+    updateProfile:useUpdateProfile,
+    isUpdatingProfile: boolean
+  };
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
 
   const handleImageUpload = async (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -16,6 +21,7 @@ export default function ProfilePage() {
       const base64Image = reader.result;
       if (typeof base64Image === "string") {
         setSelectedImg(base64Image);
+
         await updateProfile({ profilePic: base64Image });
       } else {
         console.error("Could not convert image to base64 string");
@@ -25,7 +31,7 @@ export default function ProfilePage() {
 
   return (
     <div className="flex w-full h-screen pt-20">
-      <div className="max-w-2xl mx-auto p-4 py-8">
+      <div className="max-w-7xl min-w-xl mx-auto p-4 py-8">
         <div className="bg-base-300 rounded-xl p-6 space-y-8">
           <div className="text-center">
             <h1 className="text-2xl font-semibold">Profile</h1>

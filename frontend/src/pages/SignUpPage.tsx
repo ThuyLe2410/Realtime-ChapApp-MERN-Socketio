@@ -12,10 +12,11 @@ import toast from "react-hot-toast"
 import { useAuthStore } from "../store/useAuthStore";
 import { Link } from "react-router-dom";
 import AuthImagePattern from "../components/AuthImagePattern";
+import type { useSignup } from "../types";
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const { signup, isSigningUp } = useAuthStore();
+  const { signup, isSigningUp } = useAuthStore() as {signup: useSignup, isSigningUp:boolean};
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -35,8 +36,8 @@ export default function SignUpPage() {
     e.preventDefault();
     const success = validateForm();
     if (success === true) signup(formData)
-
   };
+
   return (
     <div className="min-h-screen grid grid-cols-2">
       {/* LEFT SIDE */}
@@ -104,13 +105,13 @@ export default function SignUpPage() {
               <label className="label">
                 <span className="label-text font-medium">Password</span>
               </label>
-              <div className="relative">
+              <div className={`relative input input-bordered w-full`}>
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
                   <Lock className="size-6 text-gray-500" />
                 </div>
                 <input
                   type={showPassword ? "text" : "password"}
-                  className={`input input-bordered w-full pl-10`}
+                  className={`input w-11/12 pl-8`}
                   placeholder="......."
                   value={formData.password}
                   onChange={(e) =>
@@ -119,7 +120,7 @@ export default function SignUpPage() {
                 />
                 <button
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 m-1 flex items-center bg-transparent">
+                  className="absolute inset-y-0 right-0 pr-3 m-1 flex items-center bg-transparent z-20">
                   {showPassword ? (
                     <EyeOff className="size-4 text-base-content/40" />
                   ) : (
@@ -136,7 +137,7 @@ export default function SignUpPage() {
               disabled={isSigningUp}>
               {isSigningUp ? (
                 <>
-                  <Loader2 /> Loading
+                  <Loader2 /> Loading...
                 </>
               ) : (
                 "Create Account"

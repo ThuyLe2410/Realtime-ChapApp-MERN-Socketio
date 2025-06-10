@@ -1,10 +1,16 @@
 @import "tailwindcss" important;
-@plugin "daisyui";
-/* 
+@plugin "daisyui" {
+  themes: light, dark, cupcake, retro, bumblebee, emerald, corporate, synthwave,
+    retro, cyberpunk, valentine, halloween, garden, forest, aqua, lofi, pastel,
+    pastel, fantasy, wireframe, black, luxury, dracula, cmyk, autumn, business,
+    acid, lemonade, night, coffee, winter, dim, nord, sunset;
+}
+
 #root {
   max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
 }
 
@@ -42,4 +48,4 @@
 
 .read-the-docs {
   color: #888;
-} */
+}

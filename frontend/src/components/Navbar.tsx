@@ -1,9 +1,17 @@
 import { MessageSquare, Settings, User, LogOut } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import { Link } from "react-router-dom";
+import type { userProps } from "../types";
+import { useChatStore } from "../store/useChatStore";
 
 export default function Navbar() {
-  const { logout, authUser } = useAuthStore();
+  const { logout, authUser } = useAuthStore() as {
+    logout: () => void,
+    authUser: userProps
+  };
+  const {setSelectedUser} = useChatStore() as {
+    setSelectedUser: (data: userProps | null) => void
+  }
   return (
     <header className="bg-base-100 border-b border-base-300 fixed w-full top-0 z-40 backdrop-blur-lg">
       <div className="container mx-auto px-4 h-16">
@@ -11,7 +19,9 @@ export default function Navbar() {
           <div className="flex items-center gap-8">
             <Link
               to="/"
-              className="flex items-center gap-2.5 hover:opacity-80 transition-all">
+              className="flex items-center gap-2.5 hover:opacity-80 transition-all"
+              onClick={() => setSelectedUser(null)}
+              >
               <div className="size-9 rounded-lg bg-primary/10 flex items-center justify-center">
                 <MessageSquare className="h-5 w-5 text-primary" />
               </div>

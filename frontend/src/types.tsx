@@ -48,7 +48,8 @@ export type authUserProps = {
     _id: string,
     fullName: string,
     email:string,
-    profilePic: string
+    profilePic: string,
+    createdAt: string
 }
 
 export type AuthState = {
@@ -68,3 +69,17 @@ export type AuthState = {
   connectSocket: () => void;
   disconnectSocket: () => void;
 };
+
+export type ChatState = {
+    messages: messagesProps[],
+    users: userProps[],
+    selectedUser:userProps|null,
+    isUsersLoading: boolean,
+    isMessagesLoading: boolean,
+    getUsers: () => Promise<void>,
+    getMessages: (userId: string) => Promise<void>,
+    setSelectedUser: (data: userProps|null) => void,
+    sendMessage: (data: sendMessageDataProps) => Promise<void>,
+    subscribeToMessages: () => void,
+    unsubscribeFromMessages: () => void
+}

@@ -2,25 +2,21 @@ import { useEffect } from "react";
 import { useChatStore } from "../store/useChatStore";
 import SidebarSkeleton from "./skeletons/SidebarSkeleton";
 import { Users } from "lucide-react";
-import type { userProps } from "../types";
+import type {  AuthState, ChatState } from "../types";
+import { useAuthStore} from "../store/useAuthStore";
 
 export default function Sidebar() {
-  const { getUsers, users, selectedUser, setSelectedUser, isUserLoading } =
-    useChatStore() as {
-      getUsers: () => void;
-      users: userProps[];
-      selectedUser: userProps;
-      setSelectedUser: (data: userProps) => void;
-      isUserLoading: boolean;
-    };
-  const onlineUsers = [] as string[];
+  const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } =
+    useChatStore() as ChatState
+  const {onlineUsers} = useAuthStore() as AuthState
 
   useEffect(() => {
     getUsers();
   }, [getUsers]);
 
-  if (isUserLoading) return <SidebarSkeleton />;
+  if (isUsersLoading) return <SidebarSkeleton />;
   console.log('selectedUser',selectedUser);
+  console.log('user', users)
   return (
     <aside className="h-full w-40 lg:w-72 border-r-8 border-base-300 flex flex-col transition-all duration-200">
       <div className="border-b border-base-300 w-full p-5">

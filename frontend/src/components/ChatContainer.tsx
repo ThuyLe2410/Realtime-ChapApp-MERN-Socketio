@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useChatStore } from "../store/useChatStore";
-import type { messagesProps, userProps } from "../types";
+import type { ChatState, messagesProps } from "../types";
 import ChatHeader from "./ChatHeader";
 import MessageInput from "./MessageInput";
 import MessageSkeleton from "./skeletons/MessageSkeleton";
@@ -9,19 +9,28 @@ import type { authUserProps } from "../types";
 import { formatMessageTime, formatMessageDate } from "../lib/utils";
 
 export default function ChatContainer() {
-  const { messages, getMessages, isMessagesLoading, selectedUser } =
-    useChatStore() as {
-      messages: messagesProps[];
-      getMessages: (data: string) => void;
-      isMessagesLoading: boolean;
-      selectedUser: userProps;
-    };
+  const {
+    messages,
+    getMessages,
+    isMessagesLoading,
+    selectedUser,
+    subscribeToMessages,
+    unsubscribeFromMessages,
+  } = useChatStore() as ChatState;
   const { authUser } = useAuthStore() as { authUser: authUserProps };
 
   useEffect(() => {
+    if (!selectedUser?._id) return;
     getMessages(selectedUser._id);
     console.log("selectedUser", selectedUser._id);
-  }, [selectedUser._id, getMessages]);
+    subscribeToMessages();
+    return () => unsubscribeFromMessages();
+  }, [
+    selectedUser?._id,
+    getMessages,
+    subscribeToMessages,
+    unsubscribeFromMessages,
+  ]);
 
   if (isMessagesLoading)
     return (
@@ -46,7 +55,7 @@ export default function ChatContainer() {
             }`}>
             <div className="chat-image avatar">
               <div className="w-10 rounded-full">
-                {message.senderId === selectedUser._id && (
+                {message.senderId === selectedUser?._id && (
                   <img src={selectedUser.profilePic || "/avatar.png"} />
                 )}
               </div>
@@ -54,8 +63,7 @@ export default function ChatContainer() {
 
             <div className="chat-header mb-1">
               <time className="text-xs opacity-50 ml-1">
-                {formatMessageTime(message.createdAt) }
-                {" "}
+                {formatMessageTime(message.createdAt)}{" "}
                 {formatMessageDate(message.createdAt)}
               </time>
             </div>

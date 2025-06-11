@@ -7,9 +7,11 @@ import { testCloudinaryConnection } from "./lib/cloudinary";
 import authRoutes from "./routes/auth.route";
 import messageRoutes from "./routes/message.route";
 import { connectDB } from "./lib/db";
+import {app, server } from "./lib/socket"
+
 dotenv.config()
 
-const app = express()
+
 const PORT=process.env.PORT
 
 app.use(express.json({limit:'50mb'}))
@@ -22,7 +24,7 @@ app.use(cors({
 app.use("/api/auth", authRoutes)
 app.use("/api/messages", messageRoutes)
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`)
     connectDB()
     testCloudinaryConnection()

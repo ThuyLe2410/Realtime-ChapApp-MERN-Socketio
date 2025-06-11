@@ -1,3 +1,5 @@
+import { Socket } from "socket.io-client";
+
 export type signupForm = {
     fullName: string, 
     email: string,
@@ -48,3 +50,21 @@ export type authUserProps = {
     email:string,
     profilePic: string
 }
+
+export type AuthState = {
+  authUser: authUserProps | null;
+  isSigningUp: boolean;
+  isLoggingIn: boolean;
+  isUpdatingProfile: boolean;
+  isCheckingAuth: boolean;
+  onlineUsers: string[];
+  socket: Socket | null;
+
+  checkAuth: () => Promise<void>;
+  signup: (data: signupForm) => Promise<void>;
+  logout: () => Promise<void>;
+  login: (data: loginForm) => Promise<void>;
+  updateProfile: (data: updateProfileForm) => Promise<void>;
+  connectSocket: () => void;
+  disconnectSocket: () => void;
+};

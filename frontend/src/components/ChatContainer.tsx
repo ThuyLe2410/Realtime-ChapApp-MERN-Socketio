@@ -6,6 +6,7 @@ import MessageInput from "./MessageInput";
 import MessageSkeleton from "./skeletons/MessageSkeleton";
 import { useAuthStore } from "../store/useAuthStore";
 import type { authUserProps } from "../types";
+import { formatMessageTime, formatMessageDate } from "../lib/utils";
 
 export default function ChatContainer() {
   const { messages, getMessages, isMessagesLoading, selectedUser } =
@@ -53,7 +54,9 @@ export default function ChatContainer() {
 
             <div className="chat-header mb-1">
               <time className="text-xs opacity-50 ml-1">
-                {message.createdAt}
+                {formatMessageTime(message.createdAt) }
+                {" "}
+                {formatMessageDate(message.createdAt)}
               </time>
             </div>
             <div className="chat-bubble">

@@ -10,7 +10,7 @@ import type {
   AuthState,
 } from "../types.tsx";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "http://localhost:3001";
 
 type ErrorResponse = {
   message: string;
@@ -94,6 +94,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 
+
   connectSocket: () => {
     const { authUser } = get();
     if (!authUser || get().socket?.connected) return;
@@ -105,6 +106,9 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     socket.connect();
     set({ socket: socket });
     console.log("socket", socket);
+    socket.on("getOnlineUsers", (userIds) => {
+        set({onlineUsers: userIds})
+    })
   },
 
   disconnectSocket: () => {

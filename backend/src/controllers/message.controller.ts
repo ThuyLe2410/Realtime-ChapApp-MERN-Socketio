@@ -52,7 +52,6 @@ export const sendMessages = async (req: any, res: any) => {
     })
 
     await newMessage.save()
-    console.log('newMessage', newMessage)
     res.status(201).json(newMessage)
   } catch (error) {
     console.log("Error in getMessages controller");

@@ -1,6 +1,8 @@
 import cloudinary from "../lib/cloudinary";
 import Message from "../models/message.model";
 import User from "../models/user.model";
+import { getReceiverSocketId } from "../lib/socket";
+import { io } from "../lib/socket";
 
 export const getUsersForSidebar = async (req: any, res: any) => {
   try {
@@ -51,7 +53,13 @@ export const sendMessages = async (req: any, res: any) => {
         image: imageUrl
     })
 
-    await newMessage.save()
+    await newMessage.save();
+    // send message realtime using socket.io
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    if(receiverSocketId) {
+        io.to(receiverSocketId).emit("newMessage", newMessage)
+    }
+
     res.status(201).json(newMessage)
   } catch (error) {
     console.log("Error in getMessages controller");

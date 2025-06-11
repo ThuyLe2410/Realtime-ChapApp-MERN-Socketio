@@ -1,6 +1,6 @@
 
 
-export default function AuthImagePattern({ title, subtitle }) {
+export default function AuthImagePattern({ title, subtitle } : {title:string, subtitle:string}) {
   return (
     <div className="lg:flex items-center justify-center bg-base-200 p-12">
       <div className="max-w-md text-center">

@@ -1,14 +1,11 @@
 import { MessageSquare, Settings, User, LogOut } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import { Link } from "react-router-dom";
-import type { userProps } from "../types";
+import type { AuthState, userProps } from "../types";
 import { useChatStore } from "../store/useChatStore";
 
 export default function Navbar() {
-  const { logout, authUser } = useAuthStore() as {
-    logout: () => void,
-    authUser: userProps
-  };
+  const { logout, authUser } = useAuthStore() as AuthState
   const {setSelectedUser} = useChatStore() as {
     setSelectedUser: (data: userProps | null) => void
   }

@@ -15,13 +15,15 @@ import type { AuthState } from "./types";
 
 
 function App() {
-  const { authUser, checkAuth, isCheckingAuth } = useAuthStore() as AuthState
+  const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore() as AuthState
   const {theme} = useThemeStore() as {theme: string}
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
   console.log({ authUser });
+
+  console.log("onlineUsers", onlineUsers);
 
   if (isCheckingAuth && !authUser)
     return (

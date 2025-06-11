@@ -11,15 +11,11 @@ import { useEffect } from "react";
 import { Loader} from "lucide-react";
 import {Toaster} from "react-hot-toast";
 import { useThemeStore } from "./store/useThemeStore";
-import type { userProps } from "./types";
+import type { AuthState } from "./types";
 
 
 function App() {
-  const { authUser, checkAuth, isCheckingAuth } = useAuthStore() as {
-    authUser: userProps,
-    checkAuth:() => void,
-    isCheckingAuth: boolean
-  };
+  const { authUser, checkAuth, isCheckingAuth } = useAuthStore() as AuthState
   const {theme} = useThemeStore() as {theme: string}
 
   useEffect(() => {

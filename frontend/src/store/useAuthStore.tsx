@@ -10,7 +10,7 @@ import type {
   AuthState,
 } from "../types.tsx";
 
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = import.meta.env.MODE==="development" ? "http://localhost:3001" : "/";
 
 type ErrorResponse = {
   message: string;

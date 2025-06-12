@@ -17,9 +17,9 @@ export default function Sidebar() {
   if (isUsersLoading) return <SidebarSkeleton />;
 
   return (
-    <aside className="h-full w-40 lg:w-72 border-r-8 border-base-300 flex flex-col transition-all duration-200">
+    <aside className="h-full w-40 lg:w-72 border-r-8 border-base-300 flex flex-col transition-all duration-200 overflow-y-auto">
       <div className="border-b border-base-300 w-full p-5">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 p-3.5">
           <Users className="size-6" />
           <span className="font-medium hidden lg:block">Contacts</span>
         </div>

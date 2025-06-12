@@ -71,7 +71,7 @@ export default function LoginPage() {
                 </div>
                 <input
                   type={showPassword ? "text" : "password"}
-                  className={`input w-11/12 pl-8`}
+                  className={` w-11/12 pl-8`}
                   placeholder="......."
                   value={formData.password}
                   onChange={(e) =>

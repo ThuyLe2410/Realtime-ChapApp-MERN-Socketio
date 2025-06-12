@@ -23,7 +23,6 @@ export default function ChatContainer() {
   useEffect(() => {
     if (!selectedUser?._id) return;
     getMessages(selectedUser._id);
-    console.log("selectedUser", selectedUser._id);
     subscribeToMessages();
     return () => unsubscribeFromMessages();
   }, [
@@ -32,6 +31,8 @@ export default function ChatContainer() {
     subscribeToMessages,
     unsubscribeFromMessages,
   ]);
+
+  console.log('selectedUser', selectedUser)
 
   useEffect(() => {
     if (messageEndRef.current && messages) {

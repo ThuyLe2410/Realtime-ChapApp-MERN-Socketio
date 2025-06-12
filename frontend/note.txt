@@ -1,0 +1,10 @@
+//install tailwindcss vite
+
+//daisyUI
+https://daisyui.com/docs/install/
+
+npm i -D daisyui@latest
+
+npm i axios zustand
+
+//install react hot toast

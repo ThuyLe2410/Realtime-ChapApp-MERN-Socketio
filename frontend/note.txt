@@ -8,3 +8,6 @@ npm i -D daisyui@latest
 npm i axios zustand
 
 //install react hot toast
+
+DEPLOY
+dashboard.render.com

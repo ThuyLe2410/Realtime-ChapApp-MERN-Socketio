@@ -1,7 +1,5 @@
 backend/node_modules
 backend/.env
-backend/package*
-backend/tsconfig*
 backend/note.txt
 
 # Logs
